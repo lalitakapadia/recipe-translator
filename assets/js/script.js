@@ -83,23 +83,40 @@ function displayMealData(data){
   }
 }
 
-// translateText = displayMealData(data).text;
-// console.log(translateText);
+var foodTest = JSON.parse(localStorage.getItem("Egg Drop Soup"));
+console.log(foodTest);
+var translateFood = JSON.stringify(foodTest);
+console.log(translateFood);
 
-// const settings = {
-// 	async: true,
-// 	crossDomain: true,
-// 	url: 'https://lecto-translation.p.rapidapi.com/v1/translate/text',
-// 	method: 'POST',
-// 	headers: {
-// 		'content-type': 'application/json',
-// 		'X-RapidAPI-Key': '239430b066msh022846479d4d091p1b3b0bjsn687400fa5797',
-// 		'X-RapidAPI-Host': 'lecto-translation.p.rapidapi.com'
-// 	},
-// 	processData: false,
-// 	data: $('.recipeDiv').val
-// };
+const params = new URLSearchParams();
+params.append("to", "de");
+params.append("from", "en");
+params.append(
+  "texts",
+  `"Just try it mate. "
+  "What are you waiting for?
+`
+);
+params.append(
+  "texts",
+  `“Never memorize something that you can look up.”
+― Albert Einstein
+`
+);
 
-// $.ajax(settings).done(function (response) {
-// 	console.log(response);
-// });
+const options = {
+  method: "POST",
+  headers: {
+    "content-type": "application/x-www-form-urlencoded",
+    "x-rapidapi-host": "lecto-translation.p.rapidapi.com",
+    "x-rapidapi-key": "239430b066msh022846479d4d091p1b3b0bjsn687400fa5797",
+  },
+  body: params,
+};
+
+fetch("https://lecto-translation.p.rapidapi.com/v1/translate/text", options)
+  .then((response) => response.json())
+  .then((json) => console.log(JSON.stringify(json)))
+  .catch(function (error) {
+    console.error(error);
+  });
