@@ -77,6 +77,3 @@ function displayMealData(data){
     $('#recipe-deck').append(displayCard);
   }
 }
- 
-
-  
