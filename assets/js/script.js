@@ -40,7 +40,7 @@ function displayMealData(data){
 
     // recipe display div with tailwind css style
     // declare variables with html and tailwind css
-    var recipeDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">');
+    var recipeDiv = $('<div class="recipeDiv border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">');
     
     var mealP = $('<p>');
     var categoryP = $('<p>');
@@ -75,5 +75,31 @@ function displayMealData(data){
     displayCard.append(recipeDiv);
 
     $('#recipe-deck').append(displayCard);
+
+    //save each recipe (key = name, value = data object) to local storage
+    var savedRecipe = data.meals[i].strMeal;
+    var savedObject = JSON.stringify(data.meals[i]);
+    localStorage.setItem(savedRecipe, savedObject)
   }
 }
+
+// translateText = displayMealData(data).text;
+// console.log(translateText);
+
+// const settings = {
+// 	async: true,
+// 	crossDomain: true,
+// 	url: 'https://lecto-translation.p.rapidapi.com/v1/translate/text',
+// 	method: 'POST',
+// 	headers: {
+// 		'content-type': 'application/json',
+// 		'X-RapidAPI-Key': '239430b066msh022846479d4d091p1b3b0bjsn687400fa5797',
+// 		'X-RapidAPI-Host': 'lecto-translation.p.rapidapi.com'
+// 	},
+// 	processData: false,
+// 	data: $('.recipeDiv').val
+// };
+
+// $.ajax(settings).done(function (response) {
+// 	console.log(response);
+// });
