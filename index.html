@@ -11,13 +11,20 @@
 </head>
 
 <body>
+  <div class="bg-blue-500 p-4 mt-0 flex items-center">
+    <h1 class="text-2xl font-semibold text-white">Welcome to our Recipe Translator</h1>
+    <img src="https://static.vecteezy.com/system/resources/previews/000/439/800/original/vector-noodles-icon.jpg" alt="Noodles icon" class="h-8 w-8 mr-4 border-0">
+
+  </div>
+  
+  
   <div class="flex-row align-center justify-center min-100-vh bg-primary">
-    <div class="col-12 col-md-9 flex-column align-center bg-light p-5">
-      <h1 class="text-primary">Recipe Translator</h1>
+    <div class="col-12 col-md-9 flex-column align-center bg-light p-5 border border-gray-300 rounded-md">
+      <h2 class="text-primary">Recipe Translator</h2>
       <form id="search-form" class="form w-100">
-        <input id="search-input" class="form-input w-100" type="text" placeholder="Enter Meal Name">
-        <button id="searchButton">Search</button>
-        <select id="format-input" class="form-input w-100">
+        <input id="search-input" class="form-input w-100 border border-gray-300" type="text" placeholder="Enter Meal Name">
+        <button id="searchButton" class="border border-blue-500">Search</button>
+        <select id="format-input" class="form-input w-100 border border-gray-300">
           <option value="" disabled selected>Select a language</option>
           <option value="English">English</option>
           <option value="Arabic">Arabic</option>
@@ -27,6 +34,8 @@
         </select>
         <button id ="search-button" class="btn btn-info btn-block">Click Me</button>
       </form>
+    </div>
+   
     </div>
   </div>
   <div id="recipe-deck"></div>
