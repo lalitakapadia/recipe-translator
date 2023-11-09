@@ -21,4 +21,11 @@ $("#search-button").on("click", function(){
 
 	getApi();
 
+  // save recipe array to local storage - loop through array
+  // key = name of recipe
+  // value = recipe
+
+  // generate options for user to select recipe
+
+  //depending on option selected, calls that recipe from local storage and displays
 });
