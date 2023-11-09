@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Recipe Translator</title>
-  <link href="https://www.themealdb.com/api.php"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="./assets/styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Translator</title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
 <body>
@@ -14,7 +13,8 @@
     <div class="col-12 col-md-9 flex-column align-center bg-light p-5">
       <h1 class="text-primary">Recipe Translator</h1>
       <form id="search-form" class="form w-100">
-        <input id="search-input" class="form-input w-100" type="text" placeholder="Search!">
+        <input id="search-input" class="form-input w-100" type="text" placeholder="Enter Meal Name">
+        <button id="searchButton">Search</button>
         <select id="format-input" class="form-input w-100">
           <option value="" disabled selected>Select a language</option>
           <option value="English">English</option>
@@ -27,6 +27,8 @@
       </form>
     </div>
   </div>
+  <div id="recipe-deck"></div>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
   <script src="./assets/js/script.js"></script>
 </body>
