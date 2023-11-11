@@ -42,27 +42,24 @@ function displayMealData(data){
 
      // recipe display div with tailwind css style
     //  to display title, ingredients, category and area of the meal
-    var recipeDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/4 flex flex-col justify-between leading-normal">');
+    var recipeDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/4 flex flex-col justify-top leading-normal">');
     
     var mealP = $('<p>');
     var categoryP = $('<p>');
-    var tagsH4 = $('<h4>');
-
+    
     var ingredientP = $('<p>');
     ingredientP.text('Ingredients:');
     ingredientP.addClass('text-gray-700 text-base font-bold');
     var ingredientUL = $('<ul>');
     ingredientUL.addClass('text-gray-700 text-base list-disc ml-5');
 
-    //recipe name
+    //recipe name and category
     mealP.text((data.meals[i].strMeal));
     mealP.addClass("text-gray-900 font-bold text-xl mb-2");
     //recipe category like vegetarian or non vegetarian , recipe area origion from
     categoryP.text((data.meals[i].strCategory) + ', ' + (data.meals[i].strArea));
     categoryP.addClass("text-gray-700 text-base");    
-    tagsH4.text('Tags: ' + (data.meals[i].strTags));
-    tagsH4.addClass('text-gray-700 text-base');
-
+  
     //loop for ingrdients x = ingredients and mesurement string
     for(x=1; x<21; x++){
       var ingredientElement = 'strIngredient' + x;
@@ -81,11 +78,10 @@ function displayMealData(data){
     recipeDiv.append(categoryP);
     recipeDiv.append(ingredientP);
     recipeDiv.append( ingredientUL);
-    recipeDiv.append(tagsH4);
     displayCard.append(recipeDiv);
 
     // insruction for recipe display div with tailwind css style
-    var instructionDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/2 flex flex-col leading-normal">');
+    var instructionDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/2 flex flex-col text-justify">');
     var instructionsPValue = $('<p>');
     var instructionsPLable = $('<p>');
     //instruction for recipe and bold text 
