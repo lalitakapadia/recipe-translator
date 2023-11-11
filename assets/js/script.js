@@ -63,66 +63,18 @@ function displayMealData(data){
     tagsH4.text('Tags: ' + (data.meals[i].strTags));
     tagsH4.addClass('text-gray-700 text-base');
 
-    //adding list of ingredient one bye one
-    if(data.meals[i].strIngredient1 != "" && data.meals[i].strIngredient1 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient1 + '</li>');
-    }
-    if(data.meals[i].strIngredient2 != "" && data.meals[i].strIngredient2 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient2  + '</li>');
-    }
-    if(data.meals[i].strIngredient3 != "" && data.meals[i].strIngredient3 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient3  + '</li>');
-    }
-    if(data.meals[i].strIngredient4 != "" && data.meals[i].strIngredient4 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient4  + '</li>');
-    }
-    if(data.meals[i].strIngredient5 != "" && data.meals[i].strIngredient5 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient5  + '</li>');
-    }
-    if(data.meals[i].strIngredient6 != "" && data.meals[i].strIngredient6 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient6  + '</li>');
-    }
-    if(data.meals[i].strIngredient7 != "" && data.meals[i].strIngredient7 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient7  + '</li>');
-    }
-    if(data.meals[i].strIngredient8 != "" && data.meals[i].strIngredient8 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient8  + '</li>');
-    }
-    if(data.meals[i].strIngredient9 != "" && data.meals[i].strIngredient9 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient9  + '</li>');
-    }
-    if(data.meals[i].strIngredient10 != "" && data.meals[i].strIngredient10 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient10  + '</li>');
-    }
-    if(data.meals[i].strIngredient11 != "" && data.meals[i].strIngredient11 != null){
-        ingredientUL.append('<li>' + data.meals[i].strIngredient11 + '</li>');
-    }
-    if(data.meals[i].strIngredient12 != "" && data.meals[i].strIngredient12 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient12  + '</li>');
-    }
-    if(data.meals[i].strIngredient13 != "" && data.meals[i].strIngredient13 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient13  + '</li>');
-    }
-    if(data.meals[i].strIngredient14 != "" && data.meals[i].strIngredient14 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient14  + '</li>');
-    }
-    if(data.meals[i].strIngredient15 != "" && data.meals[i].strIngredient15 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient15  + '</li>');
-    }
-    if(data.meals[i].strIngredient16!= "" && data.meals[i].strIngredient16 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient13 + '</li>');
-    }
-    if(data.meals[i].strIngredient17 != "" && data.meals[i].strIngredient17 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient17  + '</li>');
-    }
-    if(data.meals[i].strIngredient18 != "" && data.meals[i].strIngredient18 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient18  + '</li>');
-    }
-    if(data.meals[i].strIngredient19 != "" && data.meals[i].strIngredient19 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient19  + '</li>');
-    }
-    if(data.meals[i].strIngredient20 != "" && data.meals[i].strIngredient20 != null){
-      ingredientUL.append('<li>' + data.meals[i].strIngredient20  + '</li>');
+    //loop for ingrdients x = ingredients and mesurement string
+    for(x=1; x<21; x++){
+      var ingredientElement = 'strIngredient' + x;
+      var ingredient = data.meals[i][ingredientElement];
+
+      // loop for measurements
+      var measureElement = 'strMeasure' + x;
+      var measure = data.meals[i][measureElement];
+     
+     if(ingredient != "" && ingredient != null){
+       ingredientUL.append('<li>' + ingredient + ' ' + measure + '</li>');
+     }
     }
     
     recipeDiv.append(mealP);
@@ -148,6 +100,8 @@ function displayMealData(data){
 
     $('#recipe-deck').append(displayCard);
 
+
+
     //save each recipe (key = name, value = data object) to local storage
     var savedRecipe = data.meals[i].strMeal;
     var savedObject = JSON.stringify(data.meals[i]);
@@ -169,6 +123,7 @@ function generateLanguageOptions(){
   };
   
   $.ajax(settings).done(function (response) {
+    console.log(response);
 	  var languageArray = response.languages;
 	  var optionDropDown = $("#format-input");
 	  for (var i = 0; i < languageArray.length; i++){
