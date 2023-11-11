@@ -30,49 +30,119 @@ function displayMealData(data){
   $('#recipe-deck').empty();
   for(i = 0; i < data.meals.length; i++){
      //create dynamic elements with tailwind css style
-    var displayCard = $('<div class="max-w-sm w-full lg:max-w-full lg:flex mb-2 ml-5 ">');
+    var displayCard = $('<div class=" lg:flex mb-2 ml-5 mr-5">');
     
     // image display with tailwind css 
-    var imgDiv = $('<div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">');
+    var imgDiv = $('<div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden lg:w-1/4">');
    
     imgDiv.attr('style', 'background-image: url(' + data.meals[i].strMealThumb + ')');
     displayCard.append(imgDiv);
 
-    // recipe display div with tailwind css style
-    // declare variables with html and tailwind css
-    var recipeDiv = $('<div class="recipeDiv border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">');
+     // recipe display div with tailwind css style
+    //  to display title, ingredients, category and area of the meal
+    var recipeDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/4 flex flex-col justify-between leading-normal">');
     
     var mealP = $('<p>');
     var categoryP = $('<p>');
-    var instructionsPValue = $('<p>');
-    var instructionsPLable = $('<p>');
     var tagsH4 = $('<h4>');
-   
+
+    var ingredientP = $('<p>');
+    ingredientP.text('Ingredients:');
+    ingredientP.addClass('text-gray-700 text-base font-bold');
+    var ingredientUL = $('<ul>');
+    ingredientUL.addClass('text-gray-700 text-base list-disc ml-5');
+
     //recipe name
     mealP.text((data.meals[i].strMeal));
     mealP.addClass("text-gray-900 font-bold text-xl mb-2");
     //recipe category like vegetarian or non vegetarian , recipe area origion from
     categoryP.text((data.meals[i].strCategory) + ', ' + (data.meals[i].strArea));
-    categoryP.addClass("text-gray-700 text-base");
-   //instuction for recipe and bold text 
-    instructionsPLable.text('Instuctions: ');
-    instructionsPLable.addClass('text-gray-700 text-base font-bold');
-    //in grey text full instuction
-    instructionsPValue.text(data.meals[i].strInstructions);
-    instructionsPValue.addClass('text-gray-700 text-base');
-    //
+    categoryP.addClass("text-gray-700 text-base");    
     tagsH4.text('Tags: ' + (data.meals[i].strTags));
     tagsH4.addClass('text-gray-700 text-base');
 
-
-
+    //adding list of ingredient one bye one
+    if(data.meals[i].strIngredient1 != "" && data.meals[i].strIngredient1 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient1 + '</li>');
+    }
+    if(data.meals[i].strIngredient2 != "" && data.meals[i].strIngredient2 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient2  + '</li>');
+    }
+    if(data.meals[i].strIngredient3 != "" && data.meals[i].strIngredient3 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient3  + '</li>');
+    }
+    if(data.meals[i].strIngredient4 != "" && data.meals[i].strIngredient4 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient4  + '</li>');
+    }
+    if(data.meals[i].strIngredient5 != "" && data.meals[i].strIngredient5 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient5  + '</li>');
+    }
+    if(data.meals[i].strIngredient6 != "" && data.meals[i].strIngredient6 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient6  + '</li>');
+    }
+    if(data.meals[i].strIngredient7 != "" && data.meals[i].strIngredient7 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient7  + '</li>');
+    }
+    if(data.meals[i].strIngredient8 != "" && data.meals[i].strIngredient8 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient8  + '</li>');
+    }
+    if(data.meals[i].strIngredient9 != "" && data.meals[i].strIngredient9 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient9  + '</li>');
+    }
+    if(data.meals[i].strIngredient10 != "" && data.meals[i].strIngredient10 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient10  + '</li>');
+    }
+    if(data.meals[i].strIngredient11 != "" && data.meals[i].strIngredient11 != null){
+        ingredientUL.append('<li>' + data.meals[i].strIngredient11 + '</li>');
+    }
+    if(data.meals[i].strIngredient12 != "" && data.meals[i].strIngredient12 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient12  + '</li>');
+    }
+    if(data.meals[i].strIngredient13 != "" && data.meals[i].strIngredient13 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient13  + '</li>');
+    }
+    if(data.meals[i].strIngredient14 != "" && data.meals[i].strIngredient14 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient14  + '</li>');
+    }
+    if(data.meals[i].strIngredient15 != "" && data.meals[i].strIngredient15 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient15  + '</li>');
+    }
+    if(data.meals[i].strIngredient16!= "" && data.meals[i].strIngredient16 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient13 + '</li>');
+    }
+    if(data.meals[i].strIngredient17 != "" && data.meals[i].strIngredient17 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient17  + '</li>');
+    }
+    if(data.meals[i].strIngredient18 != "" && data.meals[i].strIngredient18 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient18  + '</li>');
+    }
+    if(data.meals[i].strIngredient19 != "" && data.meals[i].strIngredient19 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient19  + '</li>');
+    }
+    if(data.meals[i].strIngredient20 != "" && data.meals[i].strIngredient20 != null){
+      ingredientUL.append('<li>' + data.meals[i].strIngredient20  + '</li>');
+    }
+    
     recipeDiv.append(mealP);
     recipeDiv.append(categoryP);
-    recipeDiv.append(instructionsPLable); 
-    recipeDiv.append(instructionsPValue); 
+    recipeDiv.append(ingredientP);
+    recipeDiv.append( ingredientUL);
     recipeDiv.append(tagsH4);
-
     displayCard.append(recipeDiv);
+
+    // insruction for recipe display div with tailwind css style
+    var instructionDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/2 flex flex-col leading-normal">');
+    var instructionsPValue = $('<p>');
+    var instructionsPLable = $('<p>');
+    //instruction for recipe and bold text 
+    instructionsPLable.text('Instuctions: ');
+    instructionsPLable.addClass('text-gray-700 text-base font-bold');
+    //in grey text full instruction
+    instructionsPValue.text(data.meals[i].strInstructions);
+    instructionsPValue.addClass('text-gray-700 text-base');
+    instructionDiv.append(instructionsPLable); 
+    instructionDiv.append(instructionsPValue); 
+    displayCard.append(instructionDiv);
 
     $('#recipe-deck').append(displayCard);
 
