@@ -32,51 +32,75 @@ function displayMealData(data){
   $('#recipe-deck').empty();
   for(i = 0; i < data.meals.length; i++){
      //create dynamic elements with tailwind css style
-    var displayCard = $('<div class="max-w-sm w-full lg:max-w-full lg:flex mb-2 ml-5 ">');
+    var displayCard = $('<div class=" lg:flex mb-2 ml-5 mr-5">');
     
     // image display with tailwind css 
-    var imgDiv = $('<div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">');
+    var imgDiv = $('<div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden lg:w-1/4">');
    
     imgDiv.attr('style', 'background-image: url(' + data.meals[i].strMealThumb + ')');
     displayCard.append(imgDiv);
 
-    // recipe display div with tailwind css style
-    // declare variables with html and tailwind css
-    var recipeDiv = $('<div class="recipeDiv border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">');
+     // recipe display div with tailwind css style
+    //  to display title, ingredients, category and area of the meal
+    var recipeDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/4 flex flex-col justify-between leading-normal">');
     
     var mealP = $('<p>');
     var categoryP = $('<p>');
-    var instructionsPValue = $('<p>');
-    var instructionsPLable = $('<p>');
     var tagsH4 = $('<h4>');
-   
+
+    var ingredientP = $('<p>');
+    ingredientP.text('Ingredients:');
+    ingredientP.addClass('text-gray-700 text-base font-bold');
+    var ingredientUL = $('<ul>');
+    ingredientUL.addClass('text-gray-700 text-base list-disc ml-5');
+
     //recipe name
     mealP.text((data.meals[i].strMeal));
     mealP.addClass("text-gray-900 font-bold text-xl mb-2");
     //recipe category like vegetarian or non vegetarian , recipe area origion from
     categoryP.text((data.meals[i].strCategory) + ', ' + (data.meals[i].strArea));
-    categoryP.addClass("text-gray-700 text-base");
-   //instuction for recipe and bold text 
-    instructionsPLable.text('Instuctions: ');
-    instructionsPLable.addClass('text-gray-700 text-base font-bold');
-    //in grey text full instuction
-    instructionsPValue.text(data.meals[i].strInstructions);
-    instructionsPValue.addClass('text-gray-700 text-base');
-    //
+    categoryP.addClass("text-gray-700 text-base");    
     tagsH4.text('Tags: ' + (data.meals[i].strTags));
     tagsH4.addClass('text-gray-700 text-base');
 
+    //loop for ingrdients x = ingredients and mesurement string
+    for(x=1; x<21; x++){
+      var ingredientElement = 'strIngredient' + x;
+      var ingredient = data.meals[i][ingredientElement];
 
-
+      // loop for measurements
+      var measureElement = 'strMeasure' + x;
+      var measure = data.meals[i][measureElement];
+     
+     if(ingredient != "" && ingredient != null){
+       ingredientUL.append('<li>' + ingredient + ' ' + measure + '</li>');
+     }
+    }
+    
     recipeDiv.append(mealP);
     recipeDiv.append(categoryP);
-    recipeDiv.append(instructionsPLable); 
-    recipeDiv.append(instructionsPValue); 
+    recipeDiv.append(ingredientP);
+    recipeDiv.append( ingredientUL);
     recipeDiv.append(tagsH4);
-
     displayCard.append(recipeDiv);
 
+    // insruction for recipe display div with tailwind css style
+    var instructionDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/2 flex flex-col leading-normal">');
+    var instructionsPValue = $('<p>');
+    var instructionsPLable = $('<p>');
+    //instruction for recipe and bold text 
+    instructionsPLable.text('Instuctions: ');
+    instructionsPLable.addClass('text-gray-700 text-base font-bold');
+    //in grey text full instruction
+    instructionsPValue.text(data.meals[i].strInstructions);
+    instructionsPValue.addClass('text-gray-700 text-base');
+    instructionDiv.append(instructionsPLable); 
+    instructionDiv.append(instructionsPValue); 
+    displayCard.append(instructionDiv);
+
     $('#recipe-deck').append(displayCard);
+
+
 
     //save each recipe (key = name, value = data object) to local storage
     var savedRecipe = data.meals[i].strMeal;
@@ -99,6 +123,7 @@ function generateLanguageOptions(){
   };
   
   $.ajax(settings).done(function (response) {
+    console.log(response);
 	  var languageArray = response.languages;
 	  var optionDropDown = $("#format-input");
 	  for (var i = 0; i < languageArray.length; i++){
