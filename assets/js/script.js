@@ -14,6 +14,8 @@ function getMealdbByName(mealName) {
     });
 }
 
+generateLanguageOptions()
+
 // add event listener for search button
 $('#searchButton').on('click',searchMealEvent);
 function searchMealEvent(event){
@@ -82,6 +84,31 @@ function displayMealData(data){
     localStorage.setItem(savedRecipe, savedObject)
   }
 }
+
+//Function to generate language options
+function generateLanguageOptions(){
+	const settings = {
+    async: true,
+    crossDomain: true,
+    url: 'https://lecto-translation.p.rapidapi.com/v1/translate/languages',
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '239430b066msh022846479d4d091p1b3b0bjsn687400fa5797',
+      'X-RapidAPI-Host': 'lecto-translation.p.rapidapi.com'
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+	  var languageArray = response.languages;
+	  var optionDropDown = $("#format-input");
+	  for (var i = 0; i < languageArray.length; i++){
+      var languageName = languageArray[i].display_name;
+      var languageCode = languageArray[i].language_code;
+      var languageOption = $(`<option value="${languageCode}">${languageName}</option>`);
+      optionDropDown.append(languageOption);
+	  }
+  })
+};
 
 // var foodTest = JSON.parse(localStorage.getItem("Egg Drop Soup"));
 // console.log(foodTest);
