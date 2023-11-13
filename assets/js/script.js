@@ -92,7 +92,7 @@ function addRecipe(data, i, displayCard){
     var measure = data.meals[i][measureElement];
     
     if(ingredient != "" && ingredient != null){
-      ingredientUL.append('<li>' + ingredient + ' ' + measure + '</li>');
+      ingredientUL.append('<li>' + ingredient.toLowerCase() + ' ' + measure.toLowerCase() + '</li>');
     }
   }
   recipeDiv.append(mealP);
