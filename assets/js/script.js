@@ -31,6 +31,9 @@ function displayMealData(data){
   $('#recipe-deck').empty();
   for(i = 0; i < data.meals.length; i++){
     //create dynamic elements with tailwind css style
+    if (data.meals[i].strInstructions.length>1000){
+      continue
+    }
     var displayCard = $('<div class=" recipe-deck-content lg:flex mb-2 ml-5 mr-5">');
     
     // display images,title,ingredients,recipe instruction
@@ -59,7 +62,8 @@ function addImage(data, index, displayCard){
 function addRecipe(data, i, displayCard){
   // recipe display div with tailwind css style
   //  to display title, ingredients, category and area of the meal
-  var recipeDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/4 flex flex-col justify-top leading-normal">');
+   
+  var recipeDiv = $('<div class="info border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/4 flex flex-col justify-top leading-normal">');
   
   var mealP = $('<p>');
   var categoryP = $('<p>');
@@ -68,7 +72,7 @@ function addRecipe(data, i, displayCard){
   ingredientP.text('Ingredients:');
   ingredientP.addClass('text-gray-700 text-base font-bold');
   var ingredientUL = $('<ul>');
-  ingredientUL.addClass('text-gray-700 text-base list-disc ml-5');
+  ingredientUL.addClass('ingredient-list text-gray-700 text-base list-disc ml-5');
 
   //recipe name and category
   mealP.text((data.meals[i].strMeal));
@@ -79,6 +83,7 @@ function addRecipe(data, i, displayCard){
 
   //loop for ingredients x = ingredients and measurement string
   for(x=1; x<21; x++){
+ 
     var ingredientElement = 'strIngredient' + x;
     var ingredient = data.meals[i][ingredientElement];
 
@@ -95,26 +100,27 @@ function addRecipe(data, i, displayCard){
   recipeDiv.append(ingredientP);
   recipeDiv.append(ingredientUL);
   displayCard.append(recipeDiv);
-  generateLanguageOptions()
-
 }
+
 
 function addRecipeInstruction(data, i, displayCard){
   // instruction for recipe display div with tailwind css style
-  var instructionDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/2 flex flex-col text-justify">');
+  var instructionDiv = $('<div class="instructions border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/2 flex flex-col text-justify">');
   var instructionsPValue = $('<p>');
   var instructionsPLable = $('<p>');
   //instruction text in bold text 
   instructionsPLable.text('Instructions: ');
-  instructionsPLable.addClass('text-gray-700 text-base font-bold');
+  instructionsPLable.addClass('instructions-title text-gray-700 text-base font-bold');
   //in grey text full instruction
   instructionsPValue.text(data.meals[i].strInstructions);
-  instructionsPValue.addClass('text-gray-700 text-base');
+  instructionsPValue.addClass('content text-gray-700 text-base');
   instructionDiv.append(instructionsPLable); 
   instructionDiv.append(instructionsPValue); 
   displayCard.append(instructionDiv);
+  generateLanguageOptions();
 }
 
+// ONLY NEED TO MAKE ONE CALL? SAVE VALUES AND APPEND TO EACH CARD
 //Function to generate language options
 function generateLanguageOptions(){
 	const settings = {
@@ -132,8 +138,8 @@ function generateLanguageOptions(){
 	  var languageArray = response.languages;
     var dropDown = $(`<select name="languages" id="language-select" class="w-100 border border-gray-300">`);
     var defaultDropDown = $(`<option value="" disabled selected>Select a language</option>`);
-    var dropDownButtonIngredient = $(`<button type="submit" id="translate-ingredient-btn">Translate Ingredients</button>`);
-    var dropDownButtonInstructions = $(`<button type="submit" id="translate-instruction-btn">Translate Instructions</button>`)
+    var translateIngredientButton = $(`<button type="submit" id="translate-ingredient-btn">Translate Ingredients</button>`);
+    var translateMethodButton = $(`<button type="submit" id="translate-method-btn">Translate Instructions</button>`);
 	  for (var i = 0; i < languageArray.length; i++){
       var languageName = languageArray[i].display_name;
       var languageCode = languageArray[i].language_code;
@@ -141,31 +147,17 @@ function generateLanguageOptions(){
       dropDown.append(languageOption);
     }
     dropDown.append(defaultDropDown);
-    $(".recipe-deck-content").append(dropDown, dropDownButtonIngredient, dropDownButtonInstructions);
+    $(".recipe-deck-content").append(dropDown, translateIngredientButton, translateMethodButton);
   })
 };
 
-// Listener event for ingredient translate click
-var languageCode = "";
-$(document).ready(function(){
-  $("#translate-ingredient-btn").on("click", "#translate-ingredient-btn", function(){
-    event.preventDefault();
-    console.log("BUTTON CLICKED!");
-    var $thisButton = $(this);
-    var getLanguageCode = $thisButton.siblings("#language-select").val();
-    console.log(getLanguageCode);
-    //VAR FOR THIS TEXT TO TRANSLATE
-    // translate(getLanguageCode, THISTEXT)
-  })
-});
-
-function translate(languageCode, translateText){
+function translate(languageCode, oldText, targetEl){
   const params = new URLSearchParams();
   params.append("to", languageCode);
   params.append("from", "en");
   params.append(
     "texts",
-    translateText
+    oldText
   );
 
   const options = {
@@ -178,9 +170,45 @@ function translate(languageCode, translateText){
     body: params,
   };
 
+  var newText;
+
   fetch("https://lecto-translation.p.rapidapi.com/v1/translate/text", options)
     .then((response) => response.json())
+    .then((json) => {
+      newText = json.translations[0].translated[0];
+      targetEl.text(newText);
+      // console.log(targetEl.text());
+    })
     .then((json) => console.log(JSON.stringify(json)))
     .catch(function (error) {
       console.error(error);
-  })};
+  })
+};
+
+// Listener event for ingredient translate click
+$(document).ready(function(){
+  $("#recipe-deck").on("click", "#translate-ingredient-btn", function(){
+    var thisButton = $(this);
+    var getLanguageCode = thisButton.siblings("#language-select");
+    var languageCode = getLanguageCode.children("option:selected").val();
+    // console.log(languageCode);
+    var oldText = thisButton.siblings(".info").children(".ingredient-list").text();
+    var listObject = thisButton.siblings(".info").children(".ingredient-list").text();
+    var target = thisButton.siblings(".info").children(".ingredient-list");
+    translate(languageCode, oldText, target);
+    
+  })
+});
+
+// Listener event for method translate click
+$(document).ready(function(){
+  $("#recipe-deck").on("click", "#translate-method-btn", function(){
+    var thisButton = $(this);
+    var getLanguageCode = thisButton.siblings("#language-select");
+    var languageCode = getLanguageCode.children("option:selected").val();
+    // console.log(languageCode);
+    var oldText = thisButton.siblings(".instructions").children(".content").text();
+    var target = thisButton.siblings(".instructions").children(".content");
+    translate(languageCode, oldText, target);
+  })
+});

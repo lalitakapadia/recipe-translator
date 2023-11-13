@@ -16,13 +16,10 @@ SO THAT I can view and the recipe, and share with anyone
 ## Sources:
 
 - https://www.themealdb.com/api.php
+- https://rapidapi.com/lecto-lecto-default/api/lecto-translation/
 
 
 ## Screenshot:
 
 
 ## Deployed link:
-
-
-
-## TEST 2
