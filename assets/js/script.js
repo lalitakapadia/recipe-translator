@@ -184,3 +184,22 @@ function translate(languageCode, translateText){
     .catch(function (error) {
       console.error(error);
   })};
+
+  // Listener event for ingredient translate click
+$(document).ready(function(){
+  $("#translate-ingredient-btn").on("click", function(event){
+    event.preventDefault();
+    var getLanguageCode = $("#language-select").val();
+    var ingredientText = getIngredientText(); // Implement a function to get the ingredient text
+    translate(getLanguageCode, ingredientText);
+  });
+
+  // Listener event for instruction translate click
+  $("#translate-instruction-btn").on("click", function(event){
+    event.preventDefault();
+    var getLanguageCode = $("#language-select").val();
+    var instructionText = getInstructionText(); // Implement a function to get the instruction text
+    translate(getLanguageCode, instructionText);
+  });
+});
+
