@@ -1,9 +1,9 @@
 const apikey = "1";
 function getMealdbByName(mealName) {
   //search mealdb api by ingredient
-  const requesMealdbUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=' + mealName;
+  const requestMealdbUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=' + mealName;
 
-  fetch(requesMealdbUrl)
+  fetch(requestMealdbUrl)
     .then(function (response) {
       return response.json();
     })
@@ -13,8 +13,6 @@ function getMealdbByName(mealName) {
       displayMealData(data);
     });
 }
-
-generateLanguageOptions()
 
 // add event listener for search button
 $('#searchButton').on('click',searchMealEvent);
@@ -33,7 +31,7 @@ function displayMealData(data){
   $('#recipe-deck').empty();
   for(i = 0; i < data.meals.length; i++){
     //create dynamic elements with tailwind css style
-    var displayCard = $('<div class=" lg:flex mb-2 ml-5 mr-5">');
+    var displayCard = $('<div class=" recipe-deck-content lg:flex mb-2 ml-5 mr-5">');
     
     // display images,title,ingredients,recipe instruction
     addImage(data, i, displayCard);
@@ -75,11 +73,11 @@ function addRecipe(data, i, displayCard){
   //recipe name and category
   mealP.text((data.meals[i].strMeal));
   mealP.addClass("text-gray-900 font-bold text-xl mb-2");
-  //recipe category like vegetarian or non vegetarian , recipe area origion from
+  //recipe category like vegetarian or non vegetarian , recipe area origin from
   categoryP.text((data.meals[i].strCategory) + ', ' + (data.meals[i].strArea));
   categoryP.addClass("text-gray-700 text-base");    
 
-  //loop for ingrdients x = ingredients and mesurement string
+  //loop for ingredients x = ingredients and measurement string
   for(x=1; x<21; x++){
     var ingredientElement = 'strIngredient' + x;
     var ingredient = data.meals[i][ingredientElement];
@@ -95,17 +93,19 @@ function addRecipe(data, i, displayCard){
   recipeDiv.append(mealP);
   recipeDiv.append(categoryP);
   recipeDiv.append(ingredientP);
-  recipeDiv.append( ingredientUL);
+  recipeDiv.append(ingredientUL);
   displayCard.append(recipeDiv);
+  generateLanguageOptions()
+
 }
 
 function addRecipeInstruction(data, i, displayCard){
-  // insruction for recipe display div with tailwind css style
+  // instruction for recipe display div with tailwind css style
   var instructionDiv = $('<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/2 flex flex-col text-justify">');
   var instructionsPValue = $('<p>');
   var instructionsPLable = $('<p>');
   //instruction text in bold text 
-  instructionsPLable.text('Instuctions: ');
+  instructionsPLable.text('Instructions: ');
   instructionsPLable.addClass('text-gray-700 text-base font-bold');
   //in grey text full instruction
   instructionsPValue.text(data.meals[i].strInstructions);
@@ -114,8 +114,6 @@ function addRecipeInstruction(data, i, displayCard){
   instructionDiv.append(instructionsPValue); 
   displayCard.append(instructionDiv);
 }
-
-
 
 //Function to generate language options
 function generateLanguageOptions(){
@@ -131,52 +129,58 @@ function generateLanguageOptions(){
   };
   
   $.ajax(settings).done(function (response) {
-    console.log(response);
 	  var languageArray = response.languages;
-	  var optionDropDown = $("#format-input");
+    var dropDown = $(`<select name="languages" id="language-select" class="w-100 border border-gray-300">`);
+    var defaultDropDown = $(`<option value="" disabled selected>Select a language</option>`);
+    var dropDownButtonIngredient = $(`<button type="submit" id="translate-ingredient-btn">Translate Ingredients</button>`);
+    var dropDownButtonInstructions = $(`<button type="submit" id="translate-instruction-btn">Translate Instructions</button>`)
 	  for (var i = 0; i < languageArray.length; i++){
       var languageName = languageArray[i].display_name;
       var languageCode = languageArray[i].language_code;
       var languageOption = $(`<option value="${languageCode}">${languageName}</option>`);
-      optionDropDown.append(languageOption);
-	  }
+      dropDown.append(languageOption);
+    }
+    dropDown.append(defaultDropDown);
+    $(".recipe-deck-content").append(dropDown, dropDownButtonIngredient, dropDownButtonInstructions);
   })
 };
 
-// var foodTest = JSON.parse(localStorage.getItem("Egg Drop Soup"));
-// console.log(foodTest);
-// var translateFood = JSON.stringify(foodTest);
-// console.log(translateFood);
+// Listener event for ingredient translate click
+var languageCode = "";
+$(document).ready(function(){
+  $("#translate-ingredient-btn").on("click", "#translate-ingredient-btn", function(){
+    event.preventDefault();
+    console.log("BUTTON CLICKED!");
+    var $thisButton = $(this);
+    var getLanguageCode = $thisButton.siblings("#language-select").val();
+    console.log(getLanguageCode);
+    //VAR FOR THIS TEXT TO TRANSLATE
+    // translate(getLanguageCode, THISTEXT)
+  })
+});
 
-// const params = new URLSearchParams();
-// params.append("to", "de");
-// params.append("from", "en");
-// params.append(
-//   "texts",
-//   `"Just try it mate. "
-//   "What are you waiting for?
-// `
-// );
-// params.append(
-//   "texts",
-//   `“Never memorize something that you can look up.”
-// ― Albert Einstein
-// `
-// );
+function translate(languageCode, translateText){
+  const params = new URLSearchParams();
+  params.append("to", languageCode);
+  params.append("from", "en");
+  params.append(
+    "texts",
+    translateText
+  );
 
-// const options = {
-//   method: "POST",
-//   headers: {
-//     "content-type": "application/x-www-form-urlencoded",
-//     "x-rapidapi-host": "lecto-translation.p.rapidapi.com",
-//     "x-rapidapi-key": "239430b066msh022846479d4d091p1b3b0bjsn687400fa5797",
-//   },
-//   body: params,
-// };
+  const options = {
+    method: "POST",
+    headers: {
+      "content-type": "application/x-www-form-urlencoded",
+      "x-rapidapi-host": "lecto-translation.p.rapidapi.com",
+      "x-rapidapi-key": "239430b066msh022846479d4d091p1b3b0bjsn687400fa5797",
+    },
+    body: params,
+  };
 
-// fetch("https://lecto-translation.p.rapidapi.com/v1/translate/text", options)
-//   .then((response) => response.json())
-//   .then((json) => console.log(JSON.stringify(json)))
-//   .catch(function (error) {
-//     console.error(error);
-//   });
+  fetch("https://lecto-translation.p.rapidapi.com/v1/translate/text", options)
+    .then((response) => response.json())
+    .then((json) => console.log(JSON.stringify(json)))
+    .catch(function (error) {
+      console.error(error);
+  })};
