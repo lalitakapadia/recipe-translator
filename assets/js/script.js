@@ -23,6 +23,8 @@ function searchMealEvent(event){
   console.log(mealName);
   if(mealName != ""){
     getMealdbByName(mealName);
+    //user-instruction "how to use" will hide from the page when clicked on search button
+    $('.user-instruction').hide();
   }  
 }
 
