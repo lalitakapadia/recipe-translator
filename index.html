@@ -11,20 +11,25 @@
 </head>
 
 <body>
-  <div class= "fixed top-0 w-full bg-yellow-500 text-center p-4 ">
-    <h1 class="text-2xl font-semibold text-black ">Welcome to our Recipe Translator</h1>
-    <!-- <img src="https://static.vecteezy.com/system/resources/previews/000/439/800/original/vector-noodles-icon.jpg" alt="Noodles icon" class="h-8 w-8 mr-4 border-0"> -->
-    <h2 class="text-primary"></h2>
-    <p class="text-gray-700 text-base">
-      <b>Explore Culinary Delights</b> </br> Search for recipes and translate the recipe names, ingredients, and instructions into different languages of your choice, explore the world of cuisine.
-    </p>
+  <div class= "fixed top-0 w-full  text-center  ">
+    <div class="bg-yellow-500 p-2">
+      <h1 class="text-2xl font-semibold text-black ">Welcome to our Recipe Translator</h1>
+      <!-- <img src="https://static.vecteezy.com/system/resources/previews/000/439/800/original/vector-noodles-icon.jpg" alt="Noodles icon" class="h-8 w-8 mr-4 border-0"> -->
+      <h2 class="text-primary"></h2>
+      <p class="text-gray-700 text-base">
+        <b>Explore Culinary Delights</b> </br> Search for recipes and translate the recipe names, ingredients, and instructions into different languages of your choice, explore the world of cuisine.
+      </p>
+    </div>
+    <div class="mt-0 bg-red-100 text-left p-4">
+      <form id="search-form" class="form w-100 ml-4 ">
+        <input id="search-input" class=" form-input w-100 border border-blue-700" type="text" placeholder="Enter Meal Name">
+        <button id="searchButton" class="border border-blue-500">Search</button>
+      </form>
+    </div>
   </div>
   
-  <div class="mt-48 flex-row align-center justify-center bg-primary">
-    <form id="search-form" class="form w-100 ml-4 mb-2">
-      <input id="search-input" class="mb-12 form-input w-100 border border-blue-700" type="text" placeholder="Enter Meal Name">
-      <button id="searchButton" class="border border-blue-500">Search</button>
-    </form>
+  <div class="mt-40 flex-row align-center justify-center bg-primary">
+    
     <div class= "user-instruction mb-8 p-4 border border-gray-400 rounded-md bg-white">
       <h3 class="text-lg font-semibold mb-2">How to Use:</h3>
       <p class="text-gray-700 text-base">
