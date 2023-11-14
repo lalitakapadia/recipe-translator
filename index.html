@@ -11,48 +11,43 @@
 </head>
 
 <body>
-  <div class="bg-blue-500 p-4 mt-0 flex items-center">
-    <h1 class="text-2xl font-semibold text-white ">Welcome to our Recipe Translator</h1>
-    <img src="https://static.vecteezy.com/system/resources/previews/000/439/800/original/vector-noodles-icon.jpg" alt="Noodles icon" class="h-8 w-8 mr-4 border-0">
+  <div class=" w-full bg-yellow-500 text-center p-4 mt-0 flex-block">
+    <h1 class="text-2xl font-semibold text-black ">Welcome to our Recipe Translator</h1>
+    <!-- <img src="https://static.vecteezy.com/system/resources/previews/000/439/800/original/vector-noodles-icon.jpg" alt="Noodles icon" class="h-8 w-8 mr-4 border-0"> -->
+    <h2 class="text-primary"></h2>
+    <p class="text-gray-700 text-base">
+      <b>Explore Culinary Delights</b> </br> Search for recipes and translate the recipe names, ingredients, and instructions into different languages of your choice, explore the world of cuisine.
+    </p>
   </div>
   
-  <div class="flex-row align-center justify-center min-100-vh bg-primary">
-    <div class="col-12 col-md-9 flex-column align-center bg-light p-5 border border-gray-300 rounded-md">
-      <h2 class="text-primary">Explore Culinary Delights</h2>
-      <div class="mb-8 p-4 border border-gray-400 rounded-md bg-white">
-        <p class="text-gray-700 text-base">
-            Welcome to Recipe Translator! This website allows you to search for recipes and
-            translates the recipe names, ingredients, and instructions into different languages.
-            Use the search bar to find your favorite recipes and explore the world of cuisine.
-        </p>
+  <div class="top-28 flex-row align-center justify-center min-100-vh bg-primary">
+    <form id="search-form" class="form w-100 ml-4 mb-2">
+      <input id="search-input" class="form-input w-100 border border-blue-700" type="text" placeholder="Enter Meal Name">
+      <button id="searchButton" class="border border-blue-500">Search</button>
+    </form>
+    <div class= "user-instruction mb-8 p-4 border border-gray-400 rounded-md bg-white">
+      <h3 class="text-lg font-semibold mb-2">How to Use:</h3>
+      <p class="text-gray-700 text-base">
+          1. Enter the name of the meal in the search bar.
+      </p>
+      <p class="text-gray-700 text-base">
+          2. Click the "Search" button to find recipes.
+      </p>
+      <p class="text-gray-700 text-base">
+          3. Explore the displayed recipes, including images, ingredients, and instructions.
+      </p>
+      <p class="text-gray-700 text-base">
+          4. Use the language dropdown to select your preferred language.
+      </p>
+      <p class="text-gray-700 text-base">
+          5. Click "Translate Ingredients" or "Translate Instructions" to see translations.
+      </p>
     </div>
-  
-      <div class= "user-instruction mb-8 p-4 border border-gray-400 rounded-md bg-white">
-        <h3 class="text-lg font-semibold mb-2">How to Use:</h3>
-        <p class="text-gray-700 text-base">
-            1. Enter the name of the meal in the search bar.
-        </p>
-        <p class="text-gray-700 text-base">
-            2. Click the "Search" button to find recipes.
-        </p>
-        <p class="text-gray-700 text-base">
-            3. Explore the displayed recipes, including images, ingredients, and instructions.
-        </p>
-        <p class="text-gray-700 text-base">
-            4. Use the language dropdown to select your preferred language.
-        </p>
-        <p class="text-gray-700 text-base">
-            5. Click "Translate Ingredients" or "Translate Instructions" to see translations.
-        </p>
-    </div>
-      <form id="search-form" class="form w-100">
-        <input id="search-input" class="form-input w-100 border border-gray-300" type="text" placeholder="Enter Meal Name">
-        <button id="searchButton" class="border border-blue-500">Search</button>
-      </form>
+      
     </div>
   </div>
   <div id="recipe-deck">
-    </div>
+  </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="./assets/js/script.js"></script>
 </body>
