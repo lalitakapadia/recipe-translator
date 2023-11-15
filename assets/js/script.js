@@ -131,7 +131,7 @@ function generateLanguageOptions(){
     url: 'https://lecto-translation.p.rapidapi.com/v1/translate/languages',
     method: 'GET',
     headers: {
-      'X-RapidAPI-Key': '239430b066msh022846479d4d091p1b3b0bjsn687400fa5797',
+      'X-RapidAPI-Key': 'ede514b64fmsh1f7ac0456e35fcdp132777jsn526617a52472',
       'X-RapidAPI-Host': 'lecto-translation.p.rapidapi.com'
     }
   };
