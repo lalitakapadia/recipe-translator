@@ -6,18 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Translator</title>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="./assets/css/style.css" />
 
 </head>
 
 <body>
-  <div class= "fixed top-0 w-full bg-yellow-500 text-center p-4 ">
-    <h1 class="text-2xl font-semibold text-black ">Welcome to our Recipe Translator</h1>
-    <!-- <img src="https://static.vecteezy.com/system/resources/previews/000/439/800/original/vector-noodles-icon.jpg" alt="Noodles icon" class="h-8 w-8 mr-4 border-0"> -->
-    <h2 class="text-primary"></h2>
-    <p class="text-gray-700 text-base">
-      <b>Explore Culinary Delights</b> </br> Search for recipes and translate the recipe names, ingredients, and instructions into different languages of your choice, explore the world of cuisine.
-    </p>
+  <div class= "fixed top-0 w-full  text-center  ">
+    <div class="bg-yellow-500 p-2">
+      <h1 class="text-2xl font-semibold text-black ">Welcome to our Recipe Translator</h1>
+      <!-- <img src="https://static.vecteezy.com/system/resources/previews/000/439/800/original/vector-noodles-icon.jpg" alt="Noodles icon" class="h-8 w-8 mr-4 border-0"> -->
+      <h2 class="text-primary"></h2>
+      <p class="text-gray-700 text-base">
+        <b>Explore Culinary Delights</b> </br> Search for recipes and translate the recipe names, ingredients, and instructions into different languages of your choice, explore the world of cuisine.
+      </p>
+    </div>
+    <div class="mt-0 bg-red-100 text-left p-4">
+      <form id="search-form" class="form w-100 ml-4 ">
+        <div class="ui-widget ">
+          <input id="search-input" class=" form-input w-100 border border-blue-700 " type="text" placeholder="Enter Meal Name">
+          <button id="searchButton" class="border border-blue-500">Search</button>
+        </div>
+      </form>
+    </div>
   </div>
   
   <div class="mt-48 flex-row align-center justify-center bg-primary">
@@ -49,6 +60,7 @@
   <div id="recipe-deck">
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <script src="./assets/js/script.js"></script>
 </body>
 

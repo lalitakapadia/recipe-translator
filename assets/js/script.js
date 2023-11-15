@@ -1,4 +1,5 @@
 const apikey = "1";
+var availableTags = [];
 function getMealdbByName(mealName) {
   //search mealdb api by ingredient
   const requestMealdbUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=' + mealName;
@@ -15,6 +16,19 @@ function getMealdbByName(mealName) {
 }
 
 // add event listener for search button
+$(function() {
+  availableTags = JSON.parse(localStorage.getItem("recipe"));
+
+  if(availableTags == null){
+    availableTags = [];
+  }
+
+  $('#search-input').autocomplete({
+    source: availableTags
+  });
+  } 
+);
+
 $('#searchButton').on('click',searchMealEvent);
 function searchMealEvent(event){
   event.preventDefault();
@@ -23,6 +37,13 @@ function searchMealEvent(event){
   console.log(mealName);
   if(mealName != ""){
     getMealdbByName(mealName);
+
+   // function for (autocomplete) that stores meal name in localstorage 
+  if(availableTags.indexOf(mealName) == -1){
+      availableTags.push(mealName);
+      localStorage.setItem('recipe', JSON.stringify(availableTags));
+    }
+    
     //user-instruction "how to use" will hide from the page when clicked on search button
     $('.user-instruction').hide();
   }  
