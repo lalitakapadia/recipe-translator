@@ -1,5 +1,7 @@
 const apikey = "1";
+// declared var for autogenerate meal name
 var availableTags = [];
+
 function getMealdbByName(mealName) {
   //search mealdb api by ingredient
   const requestMealdbUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=' + mealName;
@@ -15,20 +17,20 @@ function getMealdbByName(mealName) {
     });
 }
 
-// add event listener for search button
+//funtion for autogenrate, mealname stores in local storage 
 $(function() {
   availableTags = JSON.parse(localStorage.getItem("recipe"));
-
+  //when meal name is null that one not stored in locarstorage
   if(availableTags == null){
     availableTags = [];
   }
-
+  //this stored mealname will autogenerate when click the search button
   $('#search-input').autocomplete({
     source: availableTags
   });
   } 
 );
-
+// add event listener for search button
 $('#searchButton').on('click',searchMealEvent);
 function searchMealEvent(event){
   event.preventDefault();
