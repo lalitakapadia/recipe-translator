@@ -122,8 +122,8 @@ function addRecipeInstruction(data, i, displayCard){
   generateLanguageOptions();
 }
 
-// ONLY NEED TO MAKE ONE CALL? SAVE VALUES AND APPEND TO EACH CARD
 //Function to generate language options
+//API fetch request to get object with language codes supported by lectoAPI
 function generateLanguageOptions(){
 	const settings = {
     async: true,
@@ -136,23 +136,29 @@ function generateLanguageOptions(){
     }
   };
   
+  //Use returned data to create user inputs(drop down menu, translate buttons)
   $.ajax(settings).done(function (response) {
 	  var languageArray = response.languages;
-    var dropDown = $(`<select name="languages" id="language-select" class="w-100 border border-gray-300">`);
+    var userInputDiv = $(`<div class="user-input gap-4">`);
+    var dropDown = $(`<select name="languages" id="language-select" class="inline mx-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md">`);
     var defaultDropDown = $(`<option value="" disabled selected>Select a language</option>`);
-    var translateIngredientButton = $(`<button type="submit" id="translate-ingredient-btn">Translate Ingredients</button>`);
-    var translateMethodButton = $(`<button type="submit" id="translate-method-btn">Translate Instructions</button>`);
-	  for (var i = 0; i < languageArray.length; i++){
+    dropDown.append(defaultDropDown);
+    var translateIngredientButton = $(`<button type="submit" id="translate-ingredient-btn" class="mx-1 text-black bg-yellow-500 hover:bg-yellow-600  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Translate Ingredients</button>`);
+    var translateMethodButton = $(`<button type="submit" id="translate-method-btn" class="mx-1 text-black bg-yellow-500 hover:bg-yellow-600 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Translate Instructions</button>`);
+	  //for loop iterates data object to create each language option with code to be used in translation function
+    for (var i = 0; i < languageArray.length; i++){
       var languageName = languageArray[i].display_name;
       var languageCode = languageArray[i].language_code;
       var languageOption = $(`<option value="${languageCode}">${languageName}</option>`);
       dropDown.append(languageOption);
     }
-    dropDown.append(defaultDropDown);
-    $(".recipe-deck-content").append(dropDown, translateIngredientButton, translateMethodButton);
+    userInputDiv.append(dropDown, translateIngredientButton, translateMethodButton);
+    $(".recipe-deck-content").append(userInputDiv);
   })
 };
 
+//function to translate text - parameters gained from listener events for translate buttons
+//API requires parameters of language code and text to translate
 function translate(languageCode, oldText, targetEl){
   const params = new URLSearchParams();
   params.append("to", languageCode);
@@ -178,8 +184,8 @@ function translate(languageCode, oldText, targetEl){
     .then((response) => response.json())
     .then((json) => {
       newText = json.translations[0].translated[0];
+      //returned translated text and replaces existing text
       targetEl.text(newText);
-      // console.log(targetEl.text());
     })
     .then((json) => console.log(JSON.stringify(json)))
     .catch(function (error) {
@@ -187,30 +193,26 @@ function translate(languageCode, oldText, targetEl){
   })
 };
 
-// Listener event for ingredient translate click
+// Listener event to run translate() for ingredients. "This" targets elements related to button clicked
 $(document).ready(function(){
   $("#recipe-deck").on("click", "#translate-ingredient-btn", function(){
     var thisButton = $(this);
     var getLanguageCode = thisButton.siblings("#language-select");
     var languageCode = getLanguageCode.children("option:selected").val();
-    // console.log(languageCode);
-    var oldText = thisButton.siblings(".info").children(".ingredient-list").text();
-    var listObject = thisButton.siblings(".info").children(".ingredient-list").text();
-    var target = thisButton.siblings(".info").children(".ingredient-list");
+    var oldText = thisButton.parent(".user-input").siblings(".info").children(".ingredient-list").text();
+    var target = thisButton.parent(".user-input").siblings(".info").children(".ingredient-list");
     translate(languageCode, oldText, target);
-    
   })
 });
 
-// Listener event for method translate click
+// Listener event to run translate() for instructions. "This" targets elements related to button clicked
 $(document).ready(function(){
   $("#recipe-deck").on("click", "#translate-method-btn", function(){
     var thisButton = $(this);
     var getLanguageCode = thisButton.siblings("#language-select");
     var languageCode = getLanguageCode.children("option:selected").val();
-    // console.log(languageCode);
-    var oldText = thisButton.siblings(".instructions").children(".content").text();
-    var target = thisButton.siblings(".instructions").children(".content");
+    var oldText = thisButton.parent(".user-input").siblings(".instructions").children(".content").text();
+    var target = thisButton.parent(".user-input").siblings(".instructions").children(".content");
     translate(languageCode, oldText, target);
   })
 });
