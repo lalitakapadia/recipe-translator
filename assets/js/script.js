@@ -14,6 +14,9 @@ function getMealdbByName(mealName) {
       console.log(data);
       //calling mealdata function
       displayMealData(data);
+
+      localStorage.setItem("mealDb",JSON.stringify(data));
+      
     });
 }
 
@@ -24,7 +27,7 @@ $(function() {
   if(availableTags == null){
     availableTags = [];
   }
-  //this stored mealname will autogenerate when click the search button
+  //this stored mealname will autogenerate when  the search button
   $('#search-input').autocomplete({
     source: availableTags
   });
@@ -39,6 +42,8 @@ function searchMealEvent(event){
   console.log(mealName);
   if(mealName != ""){
     getMealdbByName(mealName);
+
+    $('#languages-lecto').val('en');
 
    // function for (autocomplete) that stores meal name in localstorage 
   if(availableTags.indexOf(mealName) == -1){
@@ -88,7 +93,7 @@ function addRecipe(data, i, displayCard){
   // recipe display div with tailwind css style
   //  to display title, ingredients, category and area of the meal
    
-  var recipeDiv = $('<div class="info border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/4 flex flex-col justify-top leading-normal">');
+  var recipeDiv = $(`<div id="recipe-${i}"  class="info border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/4 flex flex-col justify-top leading-normal">`);
   
   var mealP = $('<p>');
   var categoryP = $('<p>');
@@ -130,8 +135,8 @@ function addRecipe(data, i, displayCard){
 
 function addRecipeInstruction(data, i, displayCard){
   // instruction for recipe display div with tailwind css style
-  var instructionDiv = $('<div class="instructions border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/2 flex flex-col text-justify">');
-  var instructionsPValue = $('<p>');
+  var instructionDiv = $(`<div id="instruction-${i}"  class="instructions border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 lg:w-1/2 flex flex-col text-justify">`);
+  var instructionsPValue = $(`<p>`);
   var instructionsPLable = $('<p>');
   //instruction text in bold text 
   instructionsPLable.text('Instructions: ');
@@ -142,7 +147,7 @@ function addRecipeInstruction(data, i, displayCard){
   instructionDiv.append(instructionsPLable); 
   instructionDiv.append(instructionsPValue); 
   displayCard.append(instructionDiv);
-  generateLanguageOptions();
+  //generateLanguageOptions();
 }
 
 //Function to generate language options
@@ -154,7 +159,7 @@ function generateLanguageOptions(){
     url: 'https://lecto-translation.p.rapidapi.com/v1/translate/languages',
     method: 'GET',
     headers: {
-      'X-RapidAPI-Key': 'ede514b64fmsh1f7ac0456e35fcdp132777jsn526617a52472',
+      'X-RapidAPI-Key': 'bc97a45c89msh3eda3b2b978fb1fp1f44c1jsn30893d3a6b96',
       'X-RapidAPI-Host': 'lecto-translation.p.rapidapi.com'
     }
   };
@@ -196,7 +201,7 @@ function translate(languageCode, oldText, targetEl){
     headers: {
       "content-type": "application/x-www-form-urlencoded",
       "x-rapidapi-host": "lecto-translation.p.rapidapi.com",
-      "x-rapidapi-key": "ede514b64fmsh1f7ac0456e35fcdp132777jsn526617a52472",
+      "x-rapidapi-key": "bc97a45c89msh3eda3b2b978fb1fp1f44c1jsn30893d3a6b96",
     },
     body: params,
   };
@@ -208,7 +213,7 @@ function translate(languageCode, oldText, targetEl){
     .then((json) => {
       newText = json.translations[0].translated[0];
       //returned translated text and replaces existing text
-      targetEl.text(newText);
+      targetEl.html(newText);
     })
     .then((json) => console.log(JSON.stringify(json)))
     .catch(function (error) {
@@ -239,3 +244,5 @@ $(document).ready(function(){
     translate(languageCode, oldText, target);
   })
 });
+
+generateLanguageOptionsLecto();
