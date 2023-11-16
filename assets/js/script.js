@@ -242,7 +242,7 @@ function translate(languageCode, oldText, targetEl){
       //returned translated text and replaces existing text
       targetEl.html(newText);
     })
-    //.then((json) => console.log(JSON.stringify(json)))
+    .then((json) => console.log(JSON.stringify(json)))
     .catch(function (error) {
       console.error(error);
   })
