@@ -12,7 +12,6 @@ function generateLanguageOptionsLecto(){
       'X-RapidAPI-Host': 'lecto-translation.p.rapidapi.com'
     }
   };
-  
   $.ajax(settings).done(function (response) {
 	var languageArray = response.languages;
    // FLOW-3-2 create drop down list with default option

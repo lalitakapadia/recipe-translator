@@ -71,7 +71,9 @@ function searchMealEvent(event){
     
     //// FLOW-2-8 user-instruction "how to use" will hide from the page when clicked on search button
     $('.user-instruction').hide();
-  }  
+
+    $('#languages-lecto').removeClass('invisible');
+    }  
 }
 
  // FLOW-2-5  data comes in loops 
