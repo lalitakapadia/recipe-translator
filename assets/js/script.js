@@ -17,10 +17,10 @@ function getMealdbByName(mealName) {
     });
 }
 
-//funtion for autogenrate, mealname stores in local storage 
+//function for autogenerate, mealname stores in local storage 
 $(function() {
   availableTags = JSON.parse(localStorage.getItem("recipe"));
-  //when meal name is null that one not stored in locarstorage
+  //when meal name is null that one not stored in localstorage
   if(availableTags == null){
     availableTags = [];
   }
@@ -207,7 +207,7 @@ function translate(languageCode, oldText, targetEl){
     .then((response) => response.json())
     .then((json) => {
       newText = json.translations[0].translated[0];
-      //returned translated text and replaces existing text
+      //returned translated text replaces existing text
       targetEl.text(newText);
     })
     .then((json) => console.log(JSON.stringify(json)))
