@@ -37,6 +37,8 @@ We hope to improve and add more features in the future, such as:
 - https://rapidapi.com/lecto-lecto-default/api/lecto-translation/
 - https://github.com/lecto-ai/docs
 - https://tailwindcss.com/
+- https://jquery.com/
+- https://jqueryui.com/
 
 ## Screenshot:
 
