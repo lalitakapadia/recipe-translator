@@ -26,7 +26,7 @@ We have constructed a simple, clean user-interface, with initial instructions th
 
 We hope to improve and add more features in the future, such as:
 - Improved styling of returned text, notably the ingredient list
-- Translations not being limited by 1000 character and user can search recipe without any rescriction
+- Translations not being limited by 1000 character and user can search recipe without any restriction
 - Addition of sharing to socials function, to spread the joy of cooking!
 
 ## Sources:
@@ -37,5 +37,8 @@ We hope to improve and add more features in the future, such as:
 
 ## Screenshot:
 
+![User inputs key-words into search bar, results matching that are displayed. Recipe ingredients and instructions are translated into different languages. The search bar aut-completes previously searched words](./assets/images/Screen-recording-demo.gif)
 
 ## Deployed link:
+
+- https://blealan.github.io/recipe-translator/
