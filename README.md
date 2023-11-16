@@ -47,3 +47,4 @@ We hope to improve and add more features in the future, such as:
 ## Deployed link:
 
 - https://blealan.github.io/recipe-translator/
+- https://lalitakapadia.github.io/recipe-translator/
